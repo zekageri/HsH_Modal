@@ -65,6 +65,7 @@ HTML Format:
             <button class="hs-Modal-Btn close">X</button>
         </div>
         <div class="hs-Modal-body">
+          <!-- HERE IS THE USER CONTENT -->
         </div>
     </div>
 </hs-modal>
