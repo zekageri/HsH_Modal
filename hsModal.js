@@ -15,9 +15,11 @@ class hsModal extends HTMLElement {
             console.error("[HSH-Modal] - Modal should have an ID.");
             return;
         }
-        this.openBtn = document.querySelector(`.hs-Modal-Btn.open[target="#${this.id}"]`);
-        this.closeBtn = this.querySelector(`.hs-Modal-Btn.close`);
-        this.innerDiv = this.querySelector(".hs-Modal-Inner");
+        
+        this.openBtn    = document.querySelector(`.hs-Modal-Btn.open[target="#${this.id}"]`);
+        this.closeBtn   = this.querySelector(`.hs-Modal-Btn.close`);
+        this.innerDiv   = this.querySelector(".hs-Modal-Inner");
+        this.title      = this.querySelector(".hs-Modal-Title").innerHTML;
 
         this.openEvtHandler();
         this.closeEvtHandler();
@@ -76,6 +78,7 @@ class hsModal extends HTMLElement {
         });
     }
 
+    // Setters
     close(shouldCB = true) {
         if (this.closeCb && shouldCB) { this.closeCb(this.id); }
         this.classList.remove("open");
@@ -84,6 +87,23 @@ class hsModal extends HTMLElement {
     open(shouldCB = true) {
         if (this.openCb && shouldCB) { this.openCb(this.id); }
         this.classList.add("open");
+    }
+
+    setTitle( title ){
+        let titleElem       = this.querySelector(".hs-Modal-Title");
+        titleElem.innerHTML = title;
+        this.title          = title;
+        return title;
+    }
+
+    // Getters
+
+    getTitle(){
+        return this.title;
+    }
+
+    getID(){
+        return this.id;
     }
 };
 customElements.define('hs-modal', hsModal);
@@ -109,4 +129,9 @@ setTimeout(function(){
   testModal.close();
 }, 3000);
  
+ 
+console.log( `Modal title: ${testModal.getTitle()}` );
+testModal.setTitle("A new title with horses");
+console.log( `Modal title: ${testModal.getTitle()}` );
+
 */
