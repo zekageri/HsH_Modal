@@ -7,14 +7,18 @@ This is a custom HTML element which will simplify the modal creation
 - on("open") and on("close") callback handle
 - Header opacity adjust on modal body scroll if needed.
 - Programmatically close or open
+- Setter / getter for title.
 
 Feature goals:
 - Parse the inner form data ( if it has a form ) which can be called with a getter
-- Setter for the title
 
 Opener button format:
 - It must have a target attribute with the id of the modal
-HTML: <button class="hs-Modal-Btn open" target="#testModal">Open Modal</button>
+
+HTML: 
+```
+<button class="hs-Modal-Btn open" target="#testModal">Open Modal</button>
+```
 
 Modal format:
  - It must use the following classes:
