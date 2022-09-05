@@ -175,7 +175,7 @@ testModal.on("noSuchEvent", function (id) {
 testModal.open();
 setTimeout(function () {
     testModal.close();
-}, 3000);
+}, 1500);
 
 testModal2.on("save",function( data ){
     console.log("modalFormData: ", data);
