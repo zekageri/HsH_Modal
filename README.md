@@ -12,7 +12,7 @@ This is a custom HTML element which will simplify the modal creation
 - Mobile friendly and fully responsive
 
 Feature goals:
-- Parse the inner form data ( if it has a form ) which can be called with a getter
+- None so far
 
 Opener button format:
 - It must have a target attribute with the id of the modal
