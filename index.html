@@ -15,13 +15,15 @@
 <body>
 
     <button class="hs-Modal-Btn open" target="#testModal">Open Modal</button>
-    <button class="hs-Modal-Btn open" target="#testModal2">Open Modal 2</button>
+    <button class="hs-Modal-Btn open" target="#testModal2">Open Modal with form</button>
 
     <hs-modal class="hs-Modal-Outer" id="testModal">
         <div class="hs-Modal-Inner">
             <div class="hs-Modal-Header">
                 <span class="hs-Modal-Title"> A test modal </span>
-                <button class="hs-Modal-Btn close">X</button>
+                <div class="hs-Modal-Button-Container">
+                    <button class="hs-Modal-Btn close">X</button>
+                </div>
             </div>
             <div class="hs-Modal-body">
 
@@ -120,10 +122,18 @@
     <hs-modal class="hs-Modal-Outer" id="testModal2">
         <div class="hs-Modal-Inner">
             <div class="hs-Modal-Header">
-                <span class="hs-Modal-Title"> A test modal 2 </span>
-                <button class="hs-Modal-Btn close">X</button>
+                <span class="hs-Modal-Title"> A test modal with form </span>
+                <div class="hs-Modal-Button-Container">
+                    <button class="hs-Modal-Btn save">Save</button>
+                    <button class="hs-Modal-Btn close">X</button>
+                </div>
             </div>
             <div class="hs-Modal-body">
+                <form>
+                    <input placeholder="testName" type="text" name="username" id="">
+                    <input placeholder="testPw" type="password" name="password" id="">
+                    <input type="checkbox" name="geoData" id="" checked>
+                </form>
             </div>
         </div>
     </hs-modal>
