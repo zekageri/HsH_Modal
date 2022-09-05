@@ -12,7 +12,7 @@ This is a custom HTML element which will simplify the modal creation
 - Mobile friendly and fully responsive
 
 Feature goals:
-- None so far
+- Add dark / light mode.
 
 Opener button format:
 - It must have a target attribute with the id of the modal
