@@ -9,6 +9,7 @@ This is a custom HTML element which will simplify the modal creation
 - Programmatically close or open
 - Setter / getter for title.
 - Getter for objectified form values if the body contains a form.
+- Mobile friendly and fully responsive
 
 Feature goals:
 - Parse the inner form data ( if it has a form ) which can be called with a getter
