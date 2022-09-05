@@ -1,6 +1,8 @@
 :root {
     --hs-modal-primary-color: #34bdeb;
     --hs-modal-secondary-color: white;
+
+    --hs-modal-success-color: rgb(81, 196, 14);
 }
 
 .hs-Modal-Inner::-webkit-scrollbar {
@@ -74,6 +76,12 @@
     color: lightslategray;
 }
 
+.hs-Modal-Button-Container{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
 button.hs-Modal-Btn {
     display: flex;
     flex-direction: row;
@@ -87,6 +95,10 @@ button.hs-Modal-Btn {
     background-color: var(--hs-modal-primary-color);
     color: var(--hs-modal-secondary-color);
     border-radius: 0.2em;
+}
+
+button.hs-Modal-Btn.save{
+    background-color: var(--hs-modal-success-color);
 }
 
 button.hs-Modal-Btn:hover {
