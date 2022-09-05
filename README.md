@@ -4,13 +4,15 @@ This is a custom HTML element which will simplify the modal creation
 - Created only with pure javascript. ( No dependency except the stlyesheet )
 - Handles the open and close events automatically. ( Must create open button separately )
   - Can be closed with the close button or outside click ( or programmatically )
-- on("open") and on("close") callback handle
+- on("open"), on("close") and on("save") event callback handle
 - Header opacity adjust on modal body scroll if needed.
 - Programmatically close or open
 - Setter / getter for title.
+- Getter for objectified form values if the body contains a form.
+- Mobile friendly and fully responsive
 
 Feature goals:
-- Parse the inner form data ( if it has a form ) which can be called with a getter
+- Add dark / light mode.
 
 Opener button format:
 - It must have a target attribute with the id of the modal
@@ -33,24 +35,38 @@ Modal format:
   Test:
 
 ```JS
+// Get the elements
 let testModal = document.querySelector("#testModal");
- 
-testModal.on("open",function(id){
-  console.log(`Modal opened with id: ${id}`);
+let testModal2 = document.querySelector("#testModal2");
+
+// Add open and close events
+testModal.on("open", function (id) {
+    console.log(`Modal opened with id: ${id}`);
 });
-testModal.on("close",function(id){
-  console.log(`Modal closed with id: ${id}`);
+testModal.on("close", function (id) {
+    console.log(`Modal closed with id: ${id}`);
 });
- 
- // Test non existent events ( Throws console error )
-testModal.on("noSuchEvent",function(id){
-  //no such event
+
+// Test non existent event
+testModal.on("noSuchEvent", function (id) {
+    //no such event
 });
- 
+
+// Programmatically open and close the modal.
 testModal.open();
-setTimeout(function(){
-  testModal.close();
-}, 3000);
+setTimeout(function () {
+    testModal.close();
+}, 1500);
+
+// Save event and data retrive in an object form if body contains a form element. ( elements must have a name attribute )
+testModal2.on("save",function( data ){
+    console.log("modalFormData: ", data);
+    testModal2.resetForm();
+});
+
+// Get the objectified form regardless of the save button press.
+let modalFormData = testModal2.getForm();
+console.log("modalFormData: ", modalFormData);
 ```
 
 
@@ -62,10 +78,15 @@ HTML Format:
     <div class="hs-Modal-Inner">
         <div class="hs-Modal-Header">
             <span class="hs-Modal-Title"> A test modal </span>
-            <button class="hs-Modal-Btn close">X</button>
+            <div class="hs-Modal-Button-Container">
+                <!-- SAVE BUTTON AND THE BUTTON CONTAINER IS OPTIONAL -->
+                <!-- <button class="hs-Modal-Btn save">Save</button> -->
+                <button class="hs-Modal-Btn close">X</button>
+            </div>
         </div>
         <div class="hs-Modal-body">
           <!-- HERE IS THE USER CONTENT -->
+          <!-- MUST STYLE THIS SEPARATELLY, BASED ON USER WILL -->
         </div>
     </div>
 </hs-modal>
