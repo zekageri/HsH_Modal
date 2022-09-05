@@ -1,10 +1,12 @@
 class hsModal extends HTMLElement {
-    openBtn = null;
-    closeBtn = null;
-    id = null;
-    closeCb = null;
-    openCb = null;
-    innerDiv = null;
+    openBtn     = null;
+    closeBtn    = null;
+    id          = null;
+    closeCb     = null;
+    openCb      = null;
+    saveCb      = null;
+    innerDiv    = null;
+    form        = false;
 
     lastScrollPos = 0;
     MAX_SCROLL_POS = 150;
@@ -18,11 +20,16 @@ class hsModal extends HTMLElement {
         
         this.openBtn    = document.querySelector(`.hs-Modal-Btn.open[target="#${this.id}"]`);
         this.closeBtn   = this.querySelector(`.hs-Modal-Btn.close`);
+        this.saveBtn    = this.querySelector(`.hs-Modal-Btn.save`);
+
         this.innerDiv   = this.querySelector(".hs-Modal-Inner");
         this.title      = this.querySelector(".hs-Modal-Title").innerHTML;
 
+        this.form       = this.hasForm();
+
         this.openEvtHandler();
         this.closeEvtHandler();
+        this.saveEvtHandler();
         this.scrollEvtHandler();
     }
 
@@ -47,9 +54,11 @@ class hsModal extends HTMLElement {
     on(type, callback) {
         if (type == "close") {
             this.closeCb = callback;
-        } else if (type == "open") {
+        } else if ( type == "open" ) {
             this.openCb = callback;
-        } else {
+        } else if( type == "save" ){
+            this.saveCb = callback;
+        }else {
             console.warn(`[HSH-Modal] - No such event type on HsH Modal. Event: ${type}`);
         }
     }
@@ -62,7 +71,18 @@ class hsModal extends HTMLElement {
         });
     }
 
+    saveEvtHandler(){
+        if( !this.saveBtn ){return;}
+        let self = this;
+        this.saveBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            if( !self.saveCb ){ return; }
+            self.saveCb( self.getForm() );
+        });
+    }
+
     closeEvtHandler() {
+        if( !this.closeBtn ){ return; }
         let self = this;
         // Close if close button clicked.
         this.closeBtn.addEventListener("click", function (e) {
@@ -76,6 +96,15 @@ class hsModal extends HTMLElement {
                 self.close();
             }
         });
+    }
+
+    hasForm(){
+        let form = this.querySelector("form");
+        if( !form ){
+            console.warn(`[HSH-Modal] - Modal body contains no form field.`);
+            return false;
+        }
+        return form;
     }
 
     // Setters
@@ -95,6 +124,11 @@ class hsModal extends HTMLElement {
         this.title          = title;
         return title;
     }
+    /* This will reset the form elements into their default state */
+    resetForm(){
+        if( !this.form ){ return {}; }
+        this.form.reset();
+    }
 
     // Getters
 
@@ -105,33 +139,47 @@ class hsModal extends HTMLElement {
     getID(){
         return this.id;
     }
+
+    getForm(){
+        if( !this.form ){ return {}; }
+
+        const formData  = new FormData( this.form );
+        let object      = Object.fromEntries(formData);
+        let checkBoxes  = this.form.querySelectorAll("input[type='checkbox']");
+        for (const checkBox of checkBoxes) {
+            let checkName       = checkBox.getAttribute("name");
+            object[checkName]   = checkBox.checked;
+        }
+        return object;
+    }
 };
 customElements.define('hs-modal', hsModal);
 
 
-/************************* TEST BELOW *************************
- 
-let testModal = document.querySelector("#testModal");
- 
-testModal.on("open",function(id){
-  console.log(`Modal opened with id: ${id}`);
-});
-testModal.on("close",function(id){
-  console.log(`Modal closed with id: ${id}`);
-});
- 
-testModal.on("noSuchEvent",function(id){
-  //no such event
-});
- 
-testModal.open();
-setTimeout(function(){
-  testModal.close();
-}, 3000);
- 
- 
-console.log( `Modal title: ${testModal.getTitle()}` );
-testModal.setTitle("A new title with horses");
-console.log( `Modal title: ${testModal.getTitle()}` );
+/************************* TEST BELOW **************************/
 
-*/
+let testModal = document.querySelector("#testModal");
+let testModal2 = document.querySelector("#testModal2");
+
+testModal.on("open", function (id) {
+    console.log(`Modal opened with id: ${id}`);
+});
+testModal.on("close", function (id) {
+    console.log(`Modal closed with id: ${id}`);
+});
+
+testModal.on("noSuchEvent", function (id) {
+    //no such event
+});
+
+testModal.open();
+setTimeout(function () {
+    testModal.close();
+}, 3000);
+
+testModal2.on("save",function( data ){
+    console.log("modalFormData: ", data);
+    testModal2.resetForm();
+});
+let modalFormData = testModal2.getForm();
+console.log("modalFormData: ", modalFormData);
