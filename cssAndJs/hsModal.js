@@ -65,10 +65,24 @@ class hsModal extends HTMLElement {
 
     openEvtHandler() {
         let self = this;
-        this.openBtn.addEventListener("click", function (e) {
-            e.preventDefault();
-            self.open();
-        });
+        if( this.openBtn ){
+            this.openBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+                self.open();
+            });
+        }else{
+            this.addGlobalOpenHandler( self );
+        }
+    }
+
+    addGlobalOpenHandler( self ){
+        document.addEventListener('click', function(e){
+            let buttonEl = e.target.closest(`.hs-Modal-Btn.open[target="#${self.id}"]`);
+            if( buttonEl ){
+                self.open();
+                return false;
+            }
+        }, false);
     }
 
     saveEvtHandler(){
@@ -154,32 +168,3 @@ class hsModal extends HTMLElement {
     }
 };
 customElements.define('hs-modal', hsModal);
-
-
-/************************* TEST BELOW **************************/
-
-let testModal = document.querySelector("#testModal");
-let testModal2 = document.querySelector("#testModal2");
-
-testModal.on("open", function (id) {
-    console.log(`Modal opened with id: ${id}`);
-});
-testModal.on("close", function (id) {
-    console.log(`Modal closed with id: ${id}`);
-});
-
-testModal.on("noSuchEvent", function (id) {
-    //no such event
-});
-
-testModal.open();
-setTimeout(function () {
-    testModal.close();
-}, 1500);
-
-testModal2.on("save",function( data ){
-    console.log("modalFormData: ", data);
-    testModal2.resetForm();
-});
-let modalFormData = testModal2.getForm();
-console.log("modalFormData: ", modalFormData);

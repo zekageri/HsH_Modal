@@ -7,9 +7,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HsH modal</title>
 
-    <link rel="stylesheet" href="/minified/hsModal.min.css">
+    <style>
+        *{
+            box-sizing: border-box;
+        }
 
+        .testLorem {
+            display: block;
+            padding: 15px;
+        }
+
+
+        body {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="/minified/hsModal.min.css">
     <script defer src="/minified/hsModal.min.js"></script>
+    <!-- <script defer src="/cssAndJs/hsModal.js"></script> -->
+    <script defer src="/test.js"></script>
 </head>
 
 <body>
@@ -135,6 +157,19 @@
                     <input type="checkbox" name="geoData" id="" checked>
                 </form>
             </div>
+        </div>
+    </hs-modal>
+
+    
+    <hs-modal class="hs-Modal-Outer" id="dynamicBtnModal">
+        <div class="hs-Modal-Inner">
+            <div class="hs-Modal-Header">
+                <span class="hs-Modal-Title"> dynamicBtnModal </span>
+                <div class="hs-Modal-Button-Container">
+                    <button class="hs-Modal-Btn close">X</button>
+                </div>
+            </div>
+            <div class="hs-Modal-body"> </div>
         </div>
     </hs-modal>
 

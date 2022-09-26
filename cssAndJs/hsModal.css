@@ -138,25 +138,3 @@ button.hs-Modal-Btn:active {
         width: 95%;
     }
 }
-
-
-/** TEST **/
-
-*{
-    box-sizing: border-box;
-}
-
-.testLorem {
-    display: block;
-    padding: 15px;
-}
-
-
-body {
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-
-    padding: 0px;
-    margin: 0px;
-}
