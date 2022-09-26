@@ -120,21 +120,21 @@ button.hs-Modal-Btn:active {
 
 @media screen and (max-width:1448px) {
     .hs-Modal-Inner {
-        height: 65%;
-        width: 65%;
+        max-height: 65% !important;
+        max-width: 65% !important;
     }
 }
 
 @media screen and (max-width:1024px) {
     .hs-Modal-Inner {
-        height: 75%;
-        width: 75%;
+        max-height: 75% !important;
+        max-width: 75% !important;
     }
 }
 
 @media screen and (max-width:778px) {
     .hs-Modal-Inner {
-        height: 95%;
-        width: 95%;
+        max-height: 95% !important;
+        max-width: 95% !important;
     }
 }
